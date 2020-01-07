@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>WebSocket Test!</title>
+</head>
+<body>
+
+<div class="container bs-docs-container">
+    <h1>WebSocket Test!</h1>
+    <div class="form-group">
+        <label for="log">Log</label>
+        <textarea autocomplete="off" class="form-control" disabled id="log" rows="20"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick='socket.emit("chatMessage",{"msg":"你好！"})' type="button">发送消息</button>
+    <button class="btn btn-success" onclick='socket.emit("join",{"room":"room1"})' type="button">加入房间</button>
+    <button class="btn btn-danger" onclick='socket.emit("leave",{"room":"room1"})' type="button">退出房间</button>
+    <button class="btn btn-dark" onclick="$('#log').val('')" type="button">清除全部</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script>
+
+<script>
+    const socket = io('http://127.0.0.1:81');
+    socket.on("connect", function (res) {
+        $('#log').val($('#log').val() + "» 链接成功\n")
+    });
+    socket.on("chatMessage", function (res) {
+        $('#log').val($('#log').val() + "» " + JSON.stringify(res) + "\n")
+    });
+</script>
+</body>
+</html>
