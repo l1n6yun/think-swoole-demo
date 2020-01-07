@@ -6,7 +6,7 @@ namespace app\listener;
 use think\Container;
 use think\swoole\Websocket;
 
-class WebsocketTest
+class RoomLeave
 {
     private $websocket;
 
@@ -25,9 +25,8 @@ class WebsocketTest
      */
     public function handle($event)
     {
-        $this->websocket->emit("chatMessage", ['msg' => "You say '".$event['msg']."'."]);
-        // 对指定room进行群发
+        $this->websocket->leave($event['room']);
         $fd = $this->websocket->getSender();
-        $this->websocket->to('room1')->emit("chatMessage", ['msg' => "用户({$fd}):{$event['msg']}"]);
+        $this->websocket->to($event['room'])->emit("chatMessage", ['msg' => "用户({$fd})退出了房间({$event['room']})"]);
     }
 }

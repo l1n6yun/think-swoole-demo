@@ -48,6 +48,8 @@ return [
         ],
         'listen'        => [
             'chatMessage' => \app\listener\WebsocketTest::class,
+            'join' => \app\listener\RoomJoin::class,
+            'leave' => \app\listener\RoomLeave::class
         ],
         'subscribe'     => [],
     ],
