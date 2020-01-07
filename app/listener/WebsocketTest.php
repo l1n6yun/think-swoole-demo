@@ -29,5 +29,9 @@ class WebsocketTest
         // 对指定room进行群发
         $fd = $this->websocket->getSender();
         $this->websocket->to('room1')->emit("chatMessage", ['msg' => "用户({$fd}):{$event['msg']}"]);
+        // 指定客户端发送
+        // $this->websocket->setSender(1)->emit("chatMessage", ['msg' => "用户({$fd}):{$event['msg']}"]);
+        // 关闭指定客户端连接，参数为fd，默认为当前链接
+        // $this->websocket->close();
     }
 }
