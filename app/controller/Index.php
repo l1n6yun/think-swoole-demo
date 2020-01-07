@@ -3,6 +3,7 @@ namespace app\controller;
 
 use app\BaseController;
 use rpc\contract\Test\DemoInterface;
+use Swoole\Server;
 
 class Index extends BaseController
 {
@@ -19,5 +20,30 @@ class Index extends BaseController
     public function testRpc(DemoInterface $demo)
     {
         return $demo->sqrt(1048576);
+    }
+
+    /**
+     * 测试异步任务
+     * @param Server $server
+     * @return string
+     */
+    public function testTask(Server $server)
+    {
+        $time_start = $this->microtime_float();
+        $server->task('hello task');
+        $time_end = $this->microtime_float();
+        $time = number_format(($time_end - $time_start),6);
+
+        return "运行时间 : {$time}s";
+    }
+
+    /**
+     * 获取时间戳（毫秒）
+     * @return float
+     */
+    private function microtime_float()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
     }
 }

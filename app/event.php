@@ -10,6 +10,7 @@ return [
         'HttpEnd'  => [],
         'LogLevel' => [],
         'LogWrite' => [],
+        'swoole.task'   => [\app\listener\TaskTest::class],
     ],
 
     'subscribe' => [
