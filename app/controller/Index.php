@@ -2,6 +2,7 @@
 namespace app\controller;
 
 use app\BaseController;
+use rpc\contract\Test\DemoInterface;
 
 class Index extends BaseController
 {
@@ -13,5 +14,10 @@ class Index extends BaseController
     public function hello($name = 'ThinkPHP6')
     {
         return 'hello,' . $name;
+    }
+
+    public function testRpc(DemoInterface $demo)
+    {
+        return $demo->sqrt(1048576);
     }
 }
